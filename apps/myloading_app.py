@@ -53,9 +53,9 @@ class MyLoadingApp(HydraHeadApp):
             elif app_title == 'Loader Playground':
                 app_target.run()
             else:
-                with HyLoader("✨Now loading {}".format(app_title), loader_name=self._loader,index=[3,0,5]):
-                    time.sleep(int(self.delay))
-                    app_target.run()
+            #    with HyLoader("✨Now loading {}".format(app_title), loader_name=self._loader,index=[3,0,5]):
+            #        time.sleep(int(self.delay))
+                app_target.run()
 
 
       

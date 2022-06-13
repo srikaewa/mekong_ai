@@ -1,5 +1,5 @@
 compress_pickle
-hydralit >=1.0.9
+hydralit >=1.0.12
 hydralit_components >=1.0.4
 streamlit >=0.89
 numpy==1.20

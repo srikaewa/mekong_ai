@@ -10,3 +10,17 @@ from apps.myloading_app import MyLoadingApp
 from apps.signup import SignUpApp
 from apps.cookie_cutter import CookieCutterApp
 from apps.load_app import LoaderTestApp
+from apps.ricepest_dashboard import RicePestDashboard
+from apps.ricepest_data import RicePestDataLayers
+from apps.ricepest_import import RicePestImportData
+from apps.ricepest_ai import RicePestAIDashboard
+from apps.ricepest_config import RicePestConfig
+from apps.riceblast_dashboard import RiceBlastDashboard
+from apps.riceblast_data import RiceBlastDataLayers
+from apps.riceblast_import import RiceBlastImportData
+from apps.riceblast_ai import RiceBlastAIDashboard
+from apps.disaster_dashboard import DisasterDashboard
+from apps.disaster_data import DisasterDataLayers
+from apps.disaster_ai import DisasterAIDashboard
+from apps.config import config
+from apps.ricepest_train import bph_train_model

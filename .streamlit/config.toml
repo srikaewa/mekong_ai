@@ -1,5 +1,9 @@
 [theme]
-base="dark"
-primaryColor="#670796"
-backgroundColor="#000000"
-secondaryBackgroundColor="#670796"
+base="light"
+primaryColor="#6D8B74"
+backgroundColor="#FFFFFF"
+secondaryBackgroundColor="#F0F0F0"
+textColor="#000000"
+
+[browser]
+serverAddress="180.180.45.139"
