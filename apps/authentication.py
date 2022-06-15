@@ -1,7 +1,7 @@
 # authentication functions
 
 import psycopg2
-from config import config
+from apps.config import config
 
 import bcrypt
 
@@ -10,7 +10,7 @@ def check_if_user_exist(email):
     conn = None
     try:
         # read connection parameters
-        params = config()
+        params = config(section="postgresql_user")
 
         # connect to the PostgreSQL server
         print('Connecting to the PostgreSQL database...')
@@ -21,7 +21,7 @@ def check_if_user_exist(email):
         
 	# execute a statement
         #print('PostgreSQL database version:')
-        sql = "SELECT * FROM auth_user WHERE email = '{email}'".format(email=email)
+        sql = "SELECT * FROM data_user WHERE email = '{email}'".format(email=email)
         cur.execute(sql)
 
         # display the PostgreSQL database server version
@@ -52,7 +52,7 @@ def create_new_user(email, password, first_name, last_name):
     conn = None
     try:
         # read connection parameters
-        params = config()
+        params = config(section="postgresql_user")
 
         # connect to the PostgreSQL server
         print('Connecting to the PostgreSQL database for creating new user...')
@@ -63,9 +63,9 @@ def create_new_user(email, password, first_name, last_name):
         
 	# execute a statement
         #print('PostgreSQL database version:')
-        sql = """INSERT INTO auth_user (password, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+        sql = """INSERT INTO data_user (email, password, first_name, last_name, is_superuser, is_authorized, is_admin, is_active) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"""
 
-        cur.execute(sql, (hash, False, email, first_name, last_name, email, False, True, "Today"))
+        cur.execute(sql, (email, hash, first_name, last_name, False, False, False, True))
 
         conn.commit()
         count = cur.rowcount
@@ -86,7 +86,7 @@ def login(email, password):
     conn = None
     try:
         # read connection parameters
-        params = config()
+        params = config(section="postgresql_user")
 
         # connect to the PostgreSQL server
         print('Connecting to the PostgreSQL database for logging in...')
@@ -97,17 +97,24 @@ def login(email, password):
         
 	# execute a statement
         #print('PostgreSQL database version:')
-        sql = """SELECT * FROM auth_user WHERE email = %s"""
+        sql = """SELECT * FROM data_user WHERE email = %s"""
 
         cur.execute(sql, (email,))
         user_record = cur.fetchone()
         if not user_record:
-            return False, "Invalid email/password!"
+            return 0, "Email is not registered!", None
         #print("User : ", user_record[1])
         if bcrypt.checkpw(password.encode('utf-8'), user_record[1].encode('utf-8')):
-            return True, "User {email} has logged in successfully".format(email=email), user_record[5]
+            if user_record[4]:
+                return 4, "Superuser {email} has logged in successfully".format(email=email), user_record
+            elif user_record[6]:
+                return 3, "Admin user {email} has logged in successfully".format(email=email), user_record
+            elif user_record[5]:
+                return 2, "Authorized user {email} has logged in successfully".format(email=email), user_record
+            else:
+                return 1, "User {email} has logged in successfully".format(email=email), user_record
         else:
-            return False, "Invalid email/password!"
+            return 0, "Invalid email/password!", None
 
 
     except (Exception, psycopg2.DatabaseError) as error:

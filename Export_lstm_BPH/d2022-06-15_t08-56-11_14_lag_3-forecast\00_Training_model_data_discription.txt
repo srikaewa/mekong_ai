@@ -1,0 +1,12 @@
+model_lstm_d2022-06-15_t08-56-11_loss_0.00945
+
+loss :	0.00945
+var_loss :	0.01598
+accuracy :	0.6110297441482544
+num_features :	44
+time_lag :	14
+time_forecast :	3
+Program :	Time Series Forecasting for BPH with LSTMs - train mae-adam-data_Allst 
+model_funt :	2
+Epochs :	2
+Activation :	relu

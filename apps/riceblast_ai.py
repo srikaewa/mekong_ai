@@ -151,9 +151,6 @@ class RiceBlastAIDashboard(HydraHeadApp):
                             st.warning("Prediction data is needed to test the model!")
 
                 
-            
-
-            
                 with st.expander("Train the model"):
                     st.write("Train the model using selected dataset. Typically, Data will be yearly split into 3 parts. First part is the training data. This is the biggest proportion of all data, e.g. 3 years of daily data (2015 - 2017). Second part is for validation, e.g. 1 year of daily data (2018). The last part is for prediction/testing, e.g. 1 year of daily data (2019).")
 
@@ -183,17 +180,19 @@ class RiceBlastAIDashboard(HydraHeadApp):
                         
                         #print(prediction_set.head())
                         with st.spinner("Training blast ANN model... this can take very long to finish."):
-                            history, model_name = blast_train_model(training_set, model['n_epoch'])
+                            history, model_name, acc, var_loss = blast_train_model(training_set, model['n_epoch'])
                             print(history)
+                            print(str(acc) + " :: " + str(var_loss))
                             update_ann_model_name_to_postgis("blast_ann_model", model['id'], model_name)
 
                             print(len(history['loss']))
                             source = pd.DataFrame({
                                 'epoch': np.arange(len(history['loss'])),
-                                'Loss': history['loss'],
-                                'Validate Loss': history['val_loss'],
+                                'loss': history['loss'],
+                                'validate_loss': history['val_loss'],
                             })
-                            c = alt.Chart(source, title='Model Training Loss').mark_line().encode(x='epoch', y='Loss')
+                            dmelt = source.melt('epoch', var_name='loss', value_name='value')
+                            c = alt.Chart(dmelt, title='Model Training Loss').mark_line().encode(x='epoch', y='value', color='loss')
 
                             st.altair_chart(c, use_container_width=True)
 

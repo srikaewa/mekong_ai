@@ -1,0 +1,11 @@
+model_lstm_d20220615-t042039_loss0.02565
+
+loss :	0.02565
+var_loss :	0.03143
+accuracy :	0.02227633446455002
+num_data :	1826
+train_day :	1646
+time_lag :	30
+time_forecast :	7
+optimizer name :	adam
+loss name :	mae

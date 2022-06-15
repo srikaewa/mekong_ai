@@ -5,5 +5,5 @@ backgroundColor="#FFFFFF"
 secondaryBackgroundColor="#F0F0F0"
 textColor="#000000"
 
-[browser]
-serverAddress="180.180.45.139"
+[server]
+enableCORS = false

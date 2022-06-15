@@ -123,7 +123,7 @@ class RiceBlastImportData(HydraHeadApp):
                 if x == 'BUS':
                     selected_columns.append('bus')
                 if x == 'Weather':
-                    selected_columns = selected_columns + ['mint', 'maxt', 'temp', 'dew', 'humidity', 'wspd', 'wdir', 'precip']
+                    selected_columns = selected_columns + ['mint', 'maxt', 'temp', 'dew', 'humidity', 'precip']
             #print(selected_columns)
             if uploaded_blast_file is not None and len(blast_year_options) > 0:
                 selected_layer_df = blast_df[selected_columns]

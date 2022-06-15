@@ -151,6 +151,11 @@ class RiceBlastDataLayers(HydraHeadApp):
                     selected_df = pd.DataFrame(selected)
                 with st.expander("View all blast & BUS data chart", expanded=False):
                     for yr in blast_year_options:
+                        print(selected_data_layer)
+                        #if 'blast_lv' in selected_data_layer.columns:
+                        #    selected_layer_df['blast_lv'] = 100*selected_data_layer['blast_lv']
+                        #if 'bus' in selected_data_layer.columns:
+                        #    selected_layer_df['bus'] = 100*selected_data_layer['bus']
                         chart_data = selected_layer_df[pd.DatetimeIndex(selected_layer_df['date']).year == yr][chart_columns]
                         #print(chart_data)
                         #selection = alt.selection_multi(fields=chart_columns.remove('date'), bind='legend')                  

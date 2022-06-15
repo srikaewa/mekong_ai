@@ -19,8 +19,12 @@ from apps.riceblast_dashboard import RiceBlastDashboard
 from apps.riceblast_data import RiceBlastDataLayers
 from apps.riceblast_import import RiceBlastImportData
 from apps.riceblast_ai import RiceBlastAIDashboard
-from apps.disaster_dashboard import DisasterDashboard
-from apps.disaster_data import DisasterDataLayers
-from apps.disaster_ai import DisasterAIDashboard
+from apps.drought_import import DroughtImportData 
+from apps.drought_data import DroughtDataLayers
+from apps.drought_ai import DroughtAIDashboard
+from apps.flood_import import FloodImportData 
+from apps.flood_data import FloodDataLayers
+from apps.flood_ai import FloodAIDashboard
 from apps.config import config
 from apps.ricepest_train import bph_train_model
+from apps.authentication import *
